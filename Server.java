@@ -35,34 +35,34 @@ public class Server {
                             new BufferedReader (
                                 new InputStreamReader(
                                     socket.getInputStream()));) {
-                   //Получение запроса
+                   //РџРѕР»СѓС‡РµРЅРёРµ Р·Р°РїСЂРѕСЃР°
                    while (true) {
                        String request = reader.readLine();
 
-                        //Определение запроса
+                        //РћРїСЂРµРґРµР»РµРЅРёРµ Р·Р°РїСЂРѕСЃР°
                         String[] split;
-                        //Разделение запроса на части для определения метода
+                        //Р Р°Р·РґРµР»РµРЅРёРµ Р·Р°РїСЂРѕСЃР° РЅР° С‡Р°СЃС‚Рё РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РјРµС‚РѕРґР°
                         split = request.split("/");
                         System.out.println("request: " + request);
 
-                        //Обработка запроса на авторизацию
+                        //РћР±СЂР°Р±РѕС‚РєР° Р·Р°РїСЂРѕСЃР° РЅР° Р°РІС‚РѕСЂРёР·Р°С†РёСЋ
                         switch (split[0]) {
-                            //Обработка запроса на авторизацию
+                            //РћР±СЂР°Р±РѕС‚РєР° Р·Р°РїСЂРѕСЃР° РЅР° Р°РІС‚РѕСЂРёР·Р°С†РёСЋ
                             case ("authorize") -> {                                
-                                //Сравнение хэшей
-                                System.out.println("определили авторизацию");
+                                //РЎСЂР°РІРЅРµРЅРёРµ С…СЌС€РµР№
+                                System.out.println("РѕРїСЂРµРґРµР»РёР»Рё Р°РІС‚РѕСЂРёР·Р°С†РёСЋ");
                                 String authResult = CompareHash(split[1], split[2]);
-                                System.out.println("сравнили хэши");
-                                //Отправка ответа клиенту
+                                System.out.println("СЃСЂР°РІРЅРёР»Рё С…СЌС€Рё");
+                                //РћС‚РїСЂР°РІРєР° РѕС‚РІРµС‚Р° РєР»РёРµРЅС‚Сѓ
                                 writer.write(authResult);
                                 writer.newLine();
                                 writer.flush();
                             }
-                            //Обработка запроса на регистрацию
+                            //РћР±СЂР°Р±РѕС‚РєР° Р·Р°РїСЂРѕСЃР° РЅР° СЂРµРіРёСЃС‚СЂР°С†РёСЋ
                             case ("register") -> {
-                                //Запись данных пользователя в файл
+                                //Р—Р°РїРёСЃСЊ РґР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ С„Р°Р№Р»
                                 String regResult = UserSerialize(split[1], split[2], split[3]);
-                                //Отправка ответа клиенту
+                                //РћС‚РїСЂР°РІРєР° РѕС‚РІРµС‚Р° РєР»РёРµРЅС‚Сѓ
                                 writer.write(regResult);
                                 writer.newLine();
                                 writer.flush();
@@ -78,8 +78,8 @@ public class Server {
        }
     }
     
-    //Сохраняет данные пользователя в xml-файл в директории D://superfiles//memmoth//users
-    //Возвращает 200 - файл успешно создан; 404 - файл уже существует; 500 - ошибка
+    //РЎРѕС…СЂР°РЅСЏРµС‚ РґР°РЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ xml-С„Р°Р№Р» РІ РґРёСЂРµРєС‚РѕСЂРёРё D://superfiles//memmoth//users
+    //Р’РѕР·РІСЂР°С‰Р°РµС‚ 200 - С„Р°Р№Р» СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ; 404 - С„Р°Р№Р» СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚; 500 - РѕС€РёР±РєР°
     public static String UserSerialize(String pLogin, String pUsername, String pHash) {
         File file = new File("D://superfiles//memmoth//users//" + pLogin + ".xml");
                
@@ -90,11 +90,11 @@ public class Server {
                     XMLOutputFactory output = XMLOutputFactory.newInstance();
                     Writer oswriter = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
                     XMLStreamWriter writer = output.createXMLStreamWriter(oswriter); 
-                    writer.writeStartDocument("UTF-8", "1.0"); // Открываем XML-документ и Пишем корневой элемент ServerUsers
+                    writer.writeStartDocument("UTF-8", "1.0"); // РћС‚РєСЂС‹РІР°РµРј XML-РґРѕРєСѓРјРµРЅС‚ Рё РџРёС€РµРј РєРѕСЂРЅРµРІРѕР№ СЌР»РµРјРµРЅС‚ ServerUsers
                     writer.writeStartElement("ServerUsers"); 
 
-                    writer.writeStartElement("User");  // Записываем User 
-                    // Заполняем все тэги                        
+                    writer.writeStartElement("User");  // Р—Р°РїРёСЃС‹РІР°РµРј User 
+                    // Р—Р°РїРѕР»РЅСЏРµРј РІСЃРµ С‚СЌРіРё                        
                     writer.writeStartElement("Login");
                     writer.writeCharacters(pLogin);
                     writer.writeEndElement();                
@@ -104,29 +104,29 @@ public class Server {
                     writer.writeStartElement("Hash");
                     writer.writeCharacters(pHash);
                     writer.writeEndElement();
-                    writer.writeEndElement(); // Закрываем тэг User
+                    writer.writeEndElement(); // Р—Р°РєСЂС‹РІР°РµРј С‚СЌРі User
 
-                    writer.writeEndElement();     // Закрываем корневой элемент            
-                    writer.writeEndDocument();    // Закрываем XML-документ
+                    writer.writeEndElement();     // Р—Р°РєСЂС‹РІР°РµРј РєРѕСЂРЅРµРІРѕР№ СЌР»РµРјРµРЅС‚            
+                    writer.writeEndDocument();    // Р—Р°РєСЂС‹РІР°РµРј XML-РґРѕРєСѓРјРµРЅС‚
                     writer.flush();
                 } catch (IOException | XMLStreamException e) {
-                    //Ошибка при записи
+                    //РћС€РёР±РєР° РїСЂРё Р·Р°РїРёСЃРё
                     e.printStackTrace();   
                     return "500";
                 }  
                 return "200";
             } else {
-                //Пользователь с таким логином уже существует
+                //РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ С‚Р°РєРёРј Р»РѕРіРёРЅРѕРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
                 return "404";
             }
         } catch (IOException e) {
-            //Ошибка при создании
+            //РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё
             e.printStackTrace();
             return "500";
         }
     }
     
-    //Извлекает хэш пароля пользователя из файла с его записью
+    //РР·РІР»РµРєР°РµС‚ С…СЌС€ РїР°СЂРѕР»СЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РёР· С„Р°Р№Р»Р° СЃ РµРіРѕ Р·Р°РїРёСЃСЊСЋ
     public static String GetHash(Document document) throws DOMException, XPathExpressionException {
         XPathFactory pathFactory = XPathFactory.newInstance();
         XPath xpath = pathFactory.newXPath();
@@ -136,7 +136,7 @@ public class Server {
         return node.getTextContent();
     }
     
-    //Извлекает имя пользователя из файла с его записью
+    //РР·РІР»РµРєР°РµС‚ РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РёР· С„Р°Р№Р»Р° СЃ РµРіРѕ Р·Р°РїРёСЃСЊСЋ
     public static String GetUsername(Document document) throws DOMException, XPathExpressionException {
         XPathFactory pathFactory = XPathFactory.newInstance();
         XPath xpath = pathFactory.newXPath();
@@ -146,8 +146,8 @@ public class Server {
         return node.getTextContent();
     }
     
-    //Сравнивает хэш пароля, введённого пользователем при авторизации, с хэшем, хранящемся для него на сервере
-    //Возвращает: 200/username - пароль верный, 404 - неверный логин/пароль, 500 - ошибка
+    //РЎСЂР°РІРЅРёРІР°РµС‚ С…СЌС€ РїР°СЂРѕР»СЏ, РІРІРµРґС‘РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј РїСЂРё Р°РІС‚РѕСЂРёР·Р°С†РёРё, СЃ С…СЌС€РµРј, С…СЂР°РЅСЏС‰РµРјСЃСЏ РґР»СЏ РЅРµРіРѕ РЅР° СЃРµСЂРІРµСЂРµ
+    //Р’РѕР·РІСЂР°С‰Р°РµС‚: 200/username - РїР°СЂРѕР»СЊ РІРµСЂРЅС‹Р№, 404 - РЅРµРІРµСЂРЅС‹Р№ Р»РѕРіРёРЅ/РїР°СЂРѕР»СЊ, 500 - РѕС€РёР±РєР°
     public static String CompareHash(String pLogin, String pHash) {
         File file = new File("D://superfiles//memmoth//users//" + pLogin + ".xml");
         
@@ -157,12 +157,12 @@ public class Server {
                 Document document = documentBuilder.parse(file);
                 String fileHash = GetHash(document);
 
-                //Хэши совпали, авторизация прошла успешно
+                //РҐСЌС€Рё СЃРѕРІРїР°Р»Рё, Р°РІС‚РѕСЂРёР·Р°С†РёСЏ РїСЂРѕС€Р»Р° СѓСЃРїРµС€РЅРѕ
                 if (fileHash.compareTo(pHash) == 0) {
                     return "200/" + GetUsername(document);
                 }
                 else {
-                    //Хэши не совпали, авторизация не удалась
+                    //РҐСЌС€Рё РЅРµ СЃРѕРІРїР°Р»Рё, Р°РІС‚РѕСЂРёР·Р°С†РёСЏ РЅРµ СѓРґР°Р»Р°СЃСЊ
                     return "404";
                 }
             } catch (XPathException | ParserConfigurationException | SAXException | IOException e) {
@@ -170,7 +170,7 @@ public class Server {
                return "500";
             }
         } else {
-            //Пользователь не найден
+            //РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ
             return "404";
         }
     }
