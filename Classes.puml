@@ -1,0 +1,46 @@
+@startuml
+annotation java.lang.Override
+annotation java.lang.SuppressWarnings
+class AddEditNoteDialog
+class Authorization
+class Client
+class Error
+class Main
+class MainPage
+class Note
+class NotePanel
+class Registration
+class User
+class java.awt.Color
+class java.net.Socket
+class java.nio.charset.StandardCharsets
+class java.security.MessageDigest
+class java.security.NoSuchAlgorithmException
+class java.util.LinkedList
+class java.util.concurrent.TimeUnit
+class javax.swing.DefaultListModel
+class javax.swing.JColorChooser
+class javax.swing.JDialog
+class javax.swing.JFrame
+class javax.swing.JList
+class javax.swing.JPanel
+class javax.swing.text.SimpleAttributeSet
+class javax.swing.text.StyleConstants
+class javax.swing.text.StyledDocument
+AddEditNoteDialog ..> java.lang.Override
+AddEditNoteDialog ..> java.lang.SuppressWarnings
+AddEditNoteDialog --|> javax.swing.JDialog
+Authorization ..> java.lang.Override
+Authorization ..> java.lang.SuppressWarnings
+Authorization --|> javax.swing.JDialog
+Error ..> java.lang.SuppressWarnings
+Error --|> javax.swing.JDialog
+MainPage ..> java.lang.SuppressWarnings
+MainPage --|> javax.swing.JFrame
+Note ..> java.lang.Override
+NotePanel ..> java.lang.Override
+NotePanel ..> java.lang.SuppressWarnings
+NotePanel --|> javax.swing.JPanel
+Registration ..> java.lang.SuppressWarnings
+Registration --|> javax.swing.JFrame
+@enduml
